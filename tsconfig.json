@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2020" /* Đời JavaScript xuất ra (Giúp tối ưu file cho Node.js hiện đại) */,
+    "module": "commonjs" /* Cơ chế nạp file khi dịch (Dịch từ 'import' về 'require' để BE chạy) */,
+    "allowJs": true /* Cho phép chạy chung cả file .ts mới và file .js cũ của bài cũ */,
+    "outDir": "./dist" /* Nơi chứa sản phẩm sau khi dịch (Giúp tránh lỗi ghi đè file gốc) */,
+    "rootDir": "./src" /* Nơi chứa toàn bộ mã nguồn thô bạn tự viết */,
+    "esModuleInterop": true /* Giúp cú pháp 'import' chuẩn có thể nạp mượt mà code 'require' cũ */,
+    "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu gõ sai chữ hoa/chữ thường ở tên file khi import */,
+    "strict": true /* Bật chế độ quét lỗi nghiêm khắc nhất (Bắt buộc khai báo kiểu dữ liệu) */,
+    "skipLibCheck": true /* Bỏ qua quét lỗi bên trong các thư viện tải về (Giúp dịch nhanh hơn) */,
+    "sourceMap": true /* Tạo file bản đồ .js.map (Giúp bạn dễ mò lỗi/debug khi code) */
+  },
+  "include": [
+    "src/**/*"
+  ] /* Chỉ cho phép TypeScript quản lý các file nằm trong thư mục src */,
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] /* Né thư mục chứa t hư viện và thư mục sản phẩm ra để đỡ lỗi */
+}
