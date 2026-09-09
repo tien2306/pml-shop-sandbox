@@ -1,16 +1,29 @@
-import express from "express";
+import express from "express"; //const epress = require("express")
+import "dotenv/config"; // require("dotenv").config();
+import path from "path"; // const path = require("path");
+import webRoutes from "./routes/web";
 
+// bước chuẩn bị
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8000;
 
-app.get("/", (req, res) => {
-  res.send("hello word update");
-});
+//config view agine
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/views"));
 
-app.get("/abc", (req, res) => {
-  res.send("hello abc");
-});
+// config req.body
+// Middleware to parse URL-encoded bodies (form data)
+app.use(express.urlencoded({ extended: true }));
+// Optional: If you send data via JSON (e.g., via Fetch API/Axios instead of a standard form submit)
+app.use(express.json());
 
+//config static file: image/css/js
+app.use(express.static("public"));
+
+//config route
+webRoutes(app);
+
+// bước chạy server
 app.listen(PORT, () => {
-  console.log(`My app is running on port ${PORT}`);
+  console.log(`My app is running on port ${PORT}, ${__dirname}`);
 });
