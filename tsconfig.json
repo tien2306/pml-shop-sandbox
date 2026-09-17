@@ -1,21 +1,45 @@
 {
   "compilerOptions": {
+    //  1. CẤU HÌNH BIÊN DỊCH (TARGET & MODULE)
     "target": "es2020" /* Đời JavaScript xuất ra (Giúp tối ưu file cho Node.js hiện đại) */,
-    "module": "commonjs" /* Cơ chế nạp file khi dịch (Dịch từ 'import' về 'require' để BE chạy) */,
-    "allowJs": true /* Cho phép chạy chung cả file .ts mới và file .js cũ của bài cũ */,
-    "outDir": "./dist" /* Nơi chứa sản phẩm sau khi dịch (Giúp tránh lỗi ghi đè file gốc) */,
-    "rootDir": "./src" /* Nơi chứa toàn bộ mã nguồn thô bạn tự viết */,
+    "module": "commonjs" /* Cơ chế nạp file khi dịch (Dịch từ 'import' về 'require' để Backend chạy) */,
     "esModuleInterop": true /* Giúp cú pháp 'import' chuẩn có thể nạp mượt mà code 'require' cũ */,
-    "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu gõ sai chữ hoa/chữ thường ở tên file khi import */,
+
+    //  2. QUẢN LÝ THƯ MỤC VÀO/RA (INPUT & OUTPUT)
+    "rootDir": "./src" /* Nơi chứa toàn bộ mã nguồn thô (.ts) bạn tự viết */,
+    "outDir": "./dist" /* Nơi chứa sản phẩm sau khi dịch (.js) để tránh ghi đè file gốc */,
+    "allowJs": true /* Cho phép dự án chạy chung cả file .ts mới và file .js cũ */,
+
+    //  3. KIỂM TRA LỖI & ĐỘ NGHIÊM NGẶT (STRICT & SAFETY)
     "strict": true /* Bật chế độ quét lỗi nghiêm khắc nhất (Bắt buộc khai báo kiểu dữ liệu) */,
-    "skipLibCheck": true /* Bỏ qua quét lỗi bên trong các thư viện tải về (Giúp dịch nhanh hơn) */,
-    "sourceMap": true /* Tạo file bản đồ .js.map (Giúp bạn dễ mò lỗi/debug khi code) */
+    "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu gõ sai chữ hoa/chữ thường ở tên file khi import */,
+    "skipLibCheck": true /* Bỏ qua quét lỗi bên trong các thư viện node_modules để dịch nhanh hơn */,
+
+    //  4. HỖ TRỢ PHÁT TRIỂN & DEBUG
+    "sourceMap": true /* Tạo file bản đồ .js.map giúp bạn dễ đặt breakpoint mò lỗi khi debug */,
+    // "ignoreDeprecations": "6.0" /* Tắt các cảnh báo lỗi thời (warning) của các phiên bản TS cũ */, // đã comment vì k còn dùng nữa
+
+    //  5. CẤU HÌNH ĐƯỜNG DẪN ẢO (PATH ALIASES)
+    //  -------------------------------------------------------------------------
+    //  Giúp bạn import file ngắn gọn bằng cách dùng @ hoặc tên alias thay vì
+    //  phải viết "../../../" quá dài dòng.
+    // "baseUrl": "." /* Thư mục gốc để tính toán các đường dẫn bên dưới */, // đã comment vì k còn dùng nữa
+    "paths": {
+      "config/*": ["./src/config/*"],
+      "controllers/*": ["./src/controllers/*"],
+      "models/*": ["./src/models/*"],
+      "routes/*": ["./src/routes/*"],
+      "services/*": ["./src/services/*"]
+    }
   },
+
+  //  6. PHẠM VI QUẢN LÝ FILE CỦA TYPESCRIPT
   "include": [
     "src/**/*"
-  ] /* Chỉ cho phép TypeScript quản lý các file nằm trong thư mục src */,
+  ] /* Chỉ cho phép TypeScript quản lý và dịch các file nằm trong thư mục src */,
+
   "exclude": [
     "node_modules",
     "dist"
-  ] /* Né thư mục chứa t hư viện và thư mục sản phẩm ra để đỡ lỗi */
+  ] /* Né thư mục chứa thư viện và thư mục sản phẩm ra để đỡ tốn tài nguyên quét lỗi */
 }

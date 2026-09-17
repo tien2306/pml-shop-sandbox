@@ -4,7 +4,7 @@ import {
   getHomePage,
   getCreateUserPage,
   postCreateUser,
-} from "../controllers/user.controller";
+} from "controllers/user.controller";
 
 const webRoutes = (app: Express) => {
   router.get("/", getHomePage);
