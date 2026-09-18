@@ -4,12 +4,15 @@ import {
   getHomePage,
   getCreateUserPage,
   postCreateUser,
+  postDeleteUser,
 } from "controllers/user.controller";
 
 const webRoutes = (app: Express) => {
   router.get("/", getHomePage);
   router.get("/create-user", getCreateUserPage);
-  router.post("/create-user", postCreateUser);
+  router.post("/handle-create-user", postCreateUser);
+
+  router.post("/handle-delete-user/:id", postDeleteUser);
 
   // khai báo route
   app.use("/", router);

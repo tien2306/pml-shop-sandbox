@@ -49,9 +49,13 @@
                             <td>
                                 <%= user.address %>
                             </td>
-                            <td>
-                                <button class="btn btn-primary">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
+                            <td style="display: flex; gap: 5px;">
+                                <form style="display: block;" action="/handle-view-user" method="post">
+                                    <button class="btn btn-primary">Edit</button>
+                                </form>
+                                <form style="display: block;" action="/handle-delete-user/<%= user.id %>" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         <% }) %>

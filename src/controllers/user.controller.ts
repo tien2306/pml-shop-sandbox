@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { getAllUsers, handleCreateUser } from "services/user.service";
+import {
+  getAllUsers,
+  handleCreateUser,
+  handleDeleteUser,
+} from "services/user.service";
 
 const getHomePage = async (req: Request, res: Response) => {
   //get data
@@ -20,4 +24,12 @@ const postCreateUser = async (req: Request, res: Response) => {
   return res.redirect("/"); // chuyển hướng
 };
 
-export { getHomePage, getCreateUserPage, postCreateUser };
+const postDeleteUser = async (req: Request, res: Response) => {
+  // console.log(req.params.id);
+  // const { id } = req.params ;
+  const id = req.params.id as string;
+  await handleDeleteUser(id);
+  return res.redirect("/"); // chuyển hướng
+};
+
+export { getHomePage, getCreateUserPage, postCreateUser, postDeleteUser };
