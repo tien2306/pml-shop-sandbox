@@ -10,3 +10,4 @@ generated/
 skills-lock.json
 
 database.ts.pre
+src/generated/
