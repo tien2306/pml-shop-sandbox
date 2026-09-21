@@ -6,6 +6,8 @@
   "author": "",
   "type": "commonjs",
   "main": "dist/app.js",
+  "module": "NodeNext",
+  "moduleResolution": "NodeNext",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
@@ -19,7 +21,8 @@
   },
   "nodemonConfig": {
     "watch": [
-      "src"
+      "src",
+      ".env"
     ],
     "ext": "ts",
     "ignore": [
@@ -28,6 +31,8 @@
     "exec": "ts-node -r tsconfig-paths/register ./src/app.ts"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "7.10.0",
+    "@prisma/client": "7.10.0",
     "dotenv": "16.4.7",
     "ejs": "3.1.10",
     "express": "5.2.1",
@@ -38,6 +43,7 @@
     "@types/express": "5.0.0",
     "@types/node": "22.10.7",
     "nodemon": "3.1.9",
+    "prisma": "7.10.0",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.7.3"

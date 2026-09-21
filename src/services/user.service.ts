@@ -49,4 +49,55 @@ const handleDeleteUser = async (id: string) => {
   }
 };
 
-export { handleCreateUser, getAllUsers, handleDeleteUser };
+const getUserById = async (id: string) => {
+  //inser into database
+  const connection = await getConnection();
+
+  // A simple SELECT query
+  try {
+    const sql = "SELECT * FROM `users` WHERE `id` = ?";
+    const values = [id];
+    const [result, fields] = await connection.query(sql, values);
+    const rouws = result as any[];
+
+    if (rouws.length > 0) {
+      return rouws[0];
+    }
+
+    return null;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+const updateUserById = async (
+  id: string,
+  name: string,
+  email: string,
+  address: string,
+) => {
+  //inser into database
+  const connection = await getConnection();
+
+  // A simple SELECT query
+  try {
+    const sql =
+      "UPDATE `users` SET `name` = ?, `email` = ?, `address` = ? WHERE `id` = ?";
+    const values = [name, email, address, id];
+
+    const [result, fields] = await connection.execute(sql, values);
+    return result;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
+export {
+  handleCreateUser,
+  getAllUsers,
+  handleDeleteUser,
+  getUserById,
+  updateUserById,
+};

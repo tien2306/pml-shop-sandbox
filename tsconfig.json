@@ -1,30 +1,26 @@
 {
   "compilerOptions": {
-    //  1. CẤU HÌNH BIÊN DỊCH (TARGET & MODULE)
-    "target": "es2020" /* Đời JavaScript xuất ra (Giúp tối ưu file cho Node.js hiện đại) */,
-    "module": "commonjs" /* Cơ chế nạp file khi dịch (Dịch từ 'import' về 'require' để Backend chạy) */,
-    "esModuleInterop": true /* Giúp cú pháp 'import' chuẩn có thể nạp mượt mà code 'require' cũ */,
+    //  1. CẤU HÌNH BIÊN DỊCH
+    "target": "es2020" /* Đời JavaScript khi dịch ra  */,
+    "module": "commonjs" /* Gom code dịch ra dạng commonjs */,
+    "esModuleInterop": true /* Giúp dùng import kiểu mới cho cả thư viện dùng require cũ  */,
 
-    //  2. QUẢN LÝ THƯ MỤC VÀO/RA (INPUT & OUTPUT)
-    "rootDir": "./src" /* Nơi chứa toàn bộ mã nguồn thô (.ts) bạn tự viết */,
-    "outDir": "./dist" /* Nơi chứa sản phẩm sau khi dịch (.js) để tránh ghi đè file gốc */,
-    "allowJs": true /* Cho phép dự án chạy chung cả file .ts mới và file .js cũ */,
+    //  2. QUẢN LÝ THƯ MỤC VÀO/RA
+    "rootDir": "./src" /* Nơi chứa code TypeScript gốc */,
+    "outDir": "./dist" /* Nơi chứa code JavaScript sau khi dịch */,
+    "allowJs": true /* Cho phép dùng chung cả file .js và .ts */,
 
-    //  3. KIỂM TRA LỖI & ĐỘ NGHIÊM NGẶT (STRICT & SAFETY)
-    "strict": true /* Bật chế độ quét lỗi nghiêm khắc nhất (Bắt buộc khai báo kiểu dữ liệu) */,
-    "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu gõ sai chữ hoa/chữ thường ở tên file khi import */,
-    "skipLibCheck": true /* Bỏ qua quét lỗi bên trong các thư viện node_modules để dịch nhanh hơn */,
+    //  3. KIỂM TRA LỖI & ĐỘ NGHIÊM NGẶT
+    "strict": true /* Bắt buộc định nghĩa rõ kiểu dữ liệu */,
+    "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu viết sai chữ hoa/thường ở tên file */,
+    "skipLibCheck": true /* Bỏ qua kiểm tra lỗi trong node_modules để dịch nhanh hơn */,
 
     //  4. HỖ TRỢ PHÁT TRIỂN & DEBUG
-    "sourceMap": true /* Tạo file bản đồ .js.map giúp bạn dễ đặt breakpoint mò lỗi khi debug */,
-    // "ignoreDeprecations": "6.0" /* Tắt các cảnh báo lỗi thời (warning) của các phiên bản TS cũ */, // đã comment vì k còn dùng nữa
+    "sourceMap": true /* Tạo file bản đồ giúp debug trực tiếp trên file .ts */,
 
-    //  5. CẤU HÌNH ĐƯỜNG DẪN ẢO (PATH ALIASES)
-    //  -------------------------------------------------------------------------
-    //  Giúp bạn import file ngắn gọn bằng cách dùng @ hoặc tên alias thay vì
-    //  phải viết "../../../" quá dài dòng.
-    // "baseUrl": "." /* Thư mục gốc để tính toán các đường dẫn bên dưới */, // đã comment vì k còn dùng nữa
+    //  5. CẤU HÌNH ĐƯỜNG DẪN ẢO (absolute path ts)
     "paths": {
+      /* Tạo tên viết tắt cho thư mục để import ngắn gọn, không dùng ../ */
       "config/*": ["./src/config/*"],
       "controllers/*": ["./src/controllers/*"],
       "models/*": ["./src/models/*"],
@@ -33,13 +29,14 @@
     }
   },
 
-  //  6. PHẠM VI QUẢN LÝ FILE CỦA TYPESCRIPT
+  //  6. PHẠM VI QUẢN LÝ FILE
   "include": [
-    "src/**/*"
-  ] /* Chỉ cho phép TypeScript quản lý và dịch các file nằm trong thư mục src */,
+    "src/**/*",
+    "tsconfig.json"
+  ] /* Thư mục và file được TypeScript quét và dịch */,
 
   "exclude": [
     "node_modules",
     "dist"
-  ] /* Né thư mục chứa thư viện và thư mục sản phẩm ra để đỡ tốn tài nguyên quét lỗi */
+  ] /* Thư mục bị bỏ qua để tiết kiệm tài nguyên */
 }

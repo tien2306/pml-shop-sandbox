@@ -2,3 +2,11 @@ node_modules/
 dist/
 .vscode/
 .env
+
+generated/
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+
+database.ts.pre

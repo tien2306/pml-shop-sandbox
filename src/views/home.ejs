@@ -50,7 +50,7 @@
                                 <%= user.address %>
                             </td>
                             <td style="display: flex; gap: 5px;">
-                                <form style="display: block;" action="/handle-view-user" method="post">
+                                <form style="display: block;" action="/handle-view-user/<%= user.id %>" method="get">
                                     <button class="btn btn-primary">Edit</button>
                                 </form>
                                 <form style="display: block;" action="/handle-delete-user/<%= user.id %>" method="POST">
