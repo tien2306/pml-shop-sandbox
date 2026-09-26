@@ -36,11 +36,14 @@
     "dotenv": "16.4.7",
     "ejs": "3.1.10",
     "express": "5.2.1",
-    "mysql2": "3.24.3"
+    "multer": "1.4.5-lts.1",
+    "mysql2": "3.24.3",
+    "uuid": "11.0.5"
   },
   "devDependencies": {
     "@types/ejs": "3.1.5",
     "@types/express": "5.0.0",
+    "@types/multer": "1.4.12",
     "@types/node": "22.10.7",
     "nodemon": "3.1.9",
     "prisma": "7.10.0",

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  getAllRoles,
   getAllUsers,
   getUserById,
   handleCreateUser,
@@ -14,16 +15,19 @@ const getHomePage = async (req: Request, res: Response) => {
   return res.render("home.ejs", { users });
 };
 
-const getCreateUserPage = (req: Request, res: Response) => {
-  return res.render("create.user.ejs");
+const getCreateUserPage = async (req: Request, res: Response) => {
+  const roles = await getAllRoles();
+  return res.render("admin/user/create.ejs", { roles });
 };
 
 const postCreateUser = async (req: Request, res: Response) => {
   //Lấy dữ liệu từ form nhập
-  const { name, email, address } = req.body;
+  const { fullName, username, phone, role, address } = req.body;
+  const file = req.file;
+  const avatar = file?.fieldname ?? null;
   //handle create user
-  await handleCreateUser(name, email, address);
-  return res.redirect("/"); // chuyển hướng
+  await handleCreateUser(fullName, username, address, phone, avatar as string);
+  return res.redirect("/admin/user"); // chuyển hướng
 };
 
 const postDeleteUser = async (req: Request, res: Response) => {
