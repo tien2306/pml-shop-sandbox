@@ -34,7 +34,7 @@
                                     style="display: flex; justify-content: space-between; align-items: center; margin-left: 15px; margin-right: 15px;">
                                     <h5>Table user:</h5>
                                     <div>
-                                        <a href="/admin/create-user" class="btn btn-warning">Create a new user</a>
+                                        <a href="/admin/create-user" class="btn btn-warning">View detail a user</a>
                                     </div>
                                 </div>
                                 <hr>
@@ -65,11 +65,11 @@
                                                 </td>
                                                 <td style="display: flex; gap: 5px;">
                                                     <form style="display: block;"
-                                                        action="/handle-view-user/<%= user.id %>" method="get">
+                                                        action="/admin/view-user/<%= user.id %>" method="get">
                                                         <button class="btn btn-primary">Edit</button>
                                                     </form>
                                                     <form style="display: block;"
-                                                        action="/handle-delete-user/<%= user.id %>" method="POST">
+                                                        action="/admin/delete-user/<%= user.id %>" method="POST">
                                                         <button type="submit" class="btn btn-danger">Delete</button>
                                                     </form>
                                                 </td>

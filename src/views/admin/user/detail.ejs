@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
+    <meta name="author" content="Hỏi Dân IT" />
+    <title>Detail User</title>
+    <link href="/admin/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script>
+        $(document).ready(() => {
+            const avatarFile = $("#avatarFile");
+            avatarFile.change(function (e) {
+                const imgURL = URL.createObjectURL(e.target.files[0]);
+                $("#avatarPreview").attr("src", imgURL);
+                $("#avatarPreview").css({ "display": "block" });
+            });
+        });
+    </script> -->
+    <script>
+        // DOMContentLoaded load xong html r chay sk duoi
+        document.addEventListener("DOMContentLoaded", () => {
+            const avatarFile = document.querySelector("#avatarFile");
+            const avatarPreview = document.querySelector("#avatarPreview");
+
+            if (!avatarFile || !avatarPreview) return;
+
+            // Thay cho .change()
+            avatarFile.addEventListener("change", function (e) {
+                if (!e.target.files || e.target.files.length === 0) return;
+
+                // 1. GIẢI PHÓNG RAM CŨ 
+                const oldSrc = avatarPreview.src;
+                if (oldSrc && oldSrc.startsWith("blob:")) {
+                    URL.revokeObjectURL(oldSrc);
+                }
+
+                // 2. TẠO LINK BLOB MỚI
+                const imgURL = URL.createObjectURL(e.target.files[0]);
+
+                // 3. HIỂN THỊ LÊN GIAO DIỆN
+                avatarPreview.src = imgURL;
+                avatarPreview.style.display = "block";
+            });
+        });
+
+
+
+    </script>
+</head>
+
+<body class="sb-nav-fixed">
+    <!-- header -->
+    <%- include('../layout/header.ejs'); -%>
+
+        <!-- sidebar -->
+        <div id="layoutSidenav">
+            <%- include('../layout/sidenav.ejs'); -%>
+                <div id="layoutSidenav_content">
+
+                    <!-- content -->
+                    <main>
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Manage Users</h1>
+                            <ol class="breadcrumb mb-4">
+                                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/admin/user">Users</a></li>
+                                <li class="breadcrumb-item active">Detail Users</li>
+                            </ol>
+
+                            <div class="row">
+                                <div class="col-8 mx-auto">
+                                    <h3>View detail a user</h3>
+                                    <form action="/admin/handle-update-user" method="post"
+                                        enctype="multipart/form-data">
+
+                                        <div>
+                                            <div class="mb-3">
+                                                <input style="display:none" type="text" class="form-control" name="id"
+                                                    value="<%= user.id %>">
+
+
+                                                <!-- fullname -->
+                                                <label for="Name_" class="form-label">Full name: </label>
+                                                <input type="text" class="form-control" id="Name_"
+                                                    placeholder="nguyen van a" name="fullName"
+                                                    value="<%= user.fullName %>">
+                                            </div>
+                                            <div class="row">
+
+                                                <!-- phone -->
+                                                <div class="mb-3 col-6">
+                                                    <label for="phone_" class="form-label">Phone</label>
+                                                    <input name="phone" type="text" class="form-control" id="phone_"
+                                                        value="<%= user.phone %>">
+                                                </div>
+
+                                                <!-- role -->
+                                                <div class="mb-3 col-6">
+                                                    <label for="role_" class="form-label">Role</label>
+                                                    <select id="role_" class="form-select" name="role">
+                                                        <% roles.forEach((role,index)=> { %>
+                                                            <option value="<%-role.id %>" <%=role.id===user.roleId
+                                                                ? 'selected' : '' %> >
+                                                                <%- role.name %>
+                                                            </option>
+                                                            <%})%>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!-- email -->
+                                            <div class="mb-3">
+                                                <label for="Email_" class="form-label">Email: </label>
+                                                <input type="email" class="form-control" id="Email_"
+                                                    placeholder="nguyenvana@gmail.com" name="username"
+                                                    value="<%= user.username %>" disabled>
+                                            </div>
+
+                                            <!-- image -->
+                                            <div class="mb-3">
+                                                <label for="avatarFile" class="form-label">Avatar</label>
+                                                <input accept=".png, .jpg, .jpeg, .svg" name="avatar"
+                                                    class="form-control" type="file" id="avatarFile">
+                                            </div>
+
+                                            <% if (user.avatar) { %>
+                                                <img style="max-height: 250px; display: block;" alt="avatar preview"
+                                                    id="avatarPreview" src="/images/<%= user.avatar %>" />
+                                                <% } else { %>
+                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                                        id="avatarPreview" />
+                                                    <% } %>
+
+
+
+                                                        <!-- address -->
+                                                        <div class="mb-3">
+                                                            <label for="Address_" class="form-label">Address:
+                                                            </label>
+                                                            <textarea class="form-control" id="Address_" rows="3"
+                                                                name="address"><%= user.address %></textarea>
+                                                        </div>
+
+                                                        <!-- submit -->
+                                                        <div class="mb-3">
+                                                            <button type="submit"
+                                                                class="btn btn-warning">Submit</button>
+                                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </main>
+
+                    <!-- footer -->
+                    <%- include('../layout/footer.ejs'); -%>
+                </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <script src="/admin/js/scripts.js"></script>
+
+
+</body>
+
+</html>

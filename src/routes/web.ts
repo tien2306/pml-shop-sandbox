@@ -6,7 +6,7 @@ import {
   postCreateUser,
   postDeleteUser,
   getViewUser,
-  getUpdateUser,
+  postUpdateUser,
 } from "controllers/user.controller";
 import {
   getAdminOrderPage,
@@ -19,18 +19,24 @@ import fileUploadMiddleware from "../middleware/multer";
 const webRoutes = (app: Express) => {
   router.get("/", getHomePage);
 
-  router.get("/handle-view-user/:id", getViewUser);
-  router.post("/handle-update-user", getUpdateUser);
-  router.post("/handle-delete-user/:id", postDeleteUser);
-
   //admin routes
   router.get("/admin", getDashboardPage);
   router.get("/admin/user", getAdminUserPage);
+
   router.get("/admin/create-user", getCreateUserPage);
   router.post(
     "/admin/handle-create-user",
     fileUploadMiddleware("avatar"),
     postCreateUser,
+  );
+
+  router.post("/admin/delete-user/:id", postDeleteUser);
+
+  router.get("/admin/view-user/:id", getViewUser);
+  router.post(
+    "/admin/handle-update-user",
+    fileUploadMiddleware("avatar"),
+    postUpdateUser,
   );
 
   router.get("/admin/product", getAdminProductPage);

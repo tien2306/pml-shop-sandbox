@@ -29,7 +29,7 @@ const fileUploadMiddleware = (fieldName: string, dir: string = "images") => {
         cb(new Error("Only JPEG and PNG images are allowed."), false);
       }
     },
-  }).single(fieldName); // tên ô input | middleware
+  }).single(fieldName); // tên trường DL từ ô input
 };
 
 export default fileUploadMiddleware;
