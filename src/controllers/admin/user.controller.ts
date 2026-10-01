@@ -1,28 +1,19 @@
 import { Request, Response } from "express";
 import {
   getAllRoles,
-  getAllUsers,
   getUserById,
   handleCreateUser,
   handleDeleteUser,
   updateUserById,
 } from "services/user.service";
 
-const getHomePage = async (req: Request, res: Response) => {
-  //get data
-  const users = await getAllUsers();
-  // console.log(users);
-  return res.render("home.ejs", { users });
-};
-
-//admin
 // C - create user
-const getCreateUserPage = async (req: Request, res: Response) => {
+const getAdminCreateUserPage = async (req: Request, res: Response) => {
   const roles = await getAllRoles();
   return res.render("admin/user/create.ejs", { roles });
 };
 
-const postCreateUser = async (req: Request, res: Response) => {
+const postAdminCreateUser = async (req: Request, res: Response) => {
   //Lấy dữ liệu từ form nhập
   const { fullName, username, phone, role, address } = req.body;
   const file = req.file;
@@ -40,7 +31,7 @@ const postCreateUser = async (req: Request, res: Response) => {
 };
 
 // U - update user
-const getViewUser = async (req: Request, res: Response) => {
+const getAdminViewUser = async (req: Request, res: Response) => {
   // console.log(req.params.id);
   // const { id } = req.params;
   const id = req.params.id as string;
@@ -55,7 +46,7 @@ const getViewUser = async (req: Request, res: Response) => {
   });
 };
 
-const postUpdateUser = async (req: Request, res: Response) => {
+const postAdminUpdateUser = async (req: Request, res: Response) => {
   //Lấy dữ liệu từ form nhập
   const { id, fullName, phone, role, address } = req.body;
   const file = req.file;
@@ -66,7 +57,7 @@ const postUpdateUser = async (req: Request, res: Response) => {
 };
 
 // D - delete user
-const postDeleteUser = async (req: Request, res: Response) => {
+const postAdminDeleteUser = async (req: Request, res: Response) => {
   // console.log(req.params.id);
   // const { id } = req.params ;
   const id = req.params.id as string;
@@ -75,10 +66,9 @@ const postDeleteUser = async (req: Request, res: Response) => {
 };
 
 export {
-  getHomePage,
-  getCreateUserPage,
-  postCreateUser,
-  postDeleteUser,
-  getViewUser,
-  postUpdateUser,
+  getAdminCreateUserPage,
+  postAdminCreateUser,
+  postAdminDeleteUser,
+  getAdminViewUser,
+  postAdminUpdateUser,
 };

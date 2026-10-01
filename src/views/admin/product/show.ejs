@@ -12,6 +12,7 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
+
 <body class="sb-nav-fixed">
     <!-- header -->
     <%- include('../layout/header.ejs'); -%>
@@ -29,9 +30,33 @@
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Products</li>
                             </ol>
-                            <div>table products</div>
                         </div>
 
+
+                        <div class="container-fluid px-4">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-left: 15px; margin-right: 15px;">
+                                <h5>Table products:</h5>
+                                <div>
+                                    <a href="/admin/create-product" class="btn btn-warning"> Create a product</a>
+                                </div>
+                            </div>
+                            <hr>
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Factory</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </main>
 
                     <!-- footer -->
