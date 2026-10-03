@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import {
   getAllRoles,
   getUserById,
-  handleCreateUser,
-  handleDeleteUser,
+  createAUser,
+  deleteUserById,
   updateUserById,
-} from "services/user.service";
+} from "services/admin/user.service";
 
 // C - create user
 const getAdminCreateUserPage = async (req: Request, res: Response) => {
@@ -19,14 +19,7 @@ const postAdminCreateUser = async (req: Request, res: Response) => {
   const file = req.file;
   const avatar = file?.filename ?? null;
   //handle create user
-  await handleCreateUser(
-    fullName,
-    username,
-    address,
-    phone,
-    avatar as string,
-    role,
-  );
+  await createAUser(fullName, username, address, phone, avatar as string, role);
   return res.redirect("/admin/user"); // chuyển hướng
 };
 
@@ -61,7 +54,7 @@ const postAdminDeleteUser = async (req: Request, res: Response) => {
   // console.log(req.params.id);
   // const { id } = req.params ;
   const id = req.params.id as string;
-  await handleDeleteUser(id);
+  await deleteUserById(id);
   return res.redirect("/admin/user"); // chuyển hướng
 };
 

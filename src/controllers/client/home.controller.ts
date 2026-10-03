@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllUsers } from "services/user.service";
+import { getAllUsers } from "services/admin/user.service";
 
 const getHomePage = async (req: Request, res: Response) => {
   //get data

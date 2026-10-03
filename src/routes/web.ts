@@ -18,7 +18,10 @@ import {
 } from "controllers/admin/user.controller";
 import {
   getAdminCreatePruductPage,
+  getAdminViewProduct,
   postAdminCreatePruduct,
+  postAdminDeleteProduct,
+  postAdminUpdateProduct,
 } from "controllers/admin/product.controller";
 
 const webRoutes = (app: Express) => {
@@ -54,6 +57,15 @@ const webRoutes = (app: Express) => {
     "/admin/handle-create-product",
     fileUploadMiddleware("image", "images/product"),
     postAdminCreatePruduct,
+  );
+
+  router.post("/admin/delete-product/:id", postAdminDeleteProduct);
+
+  router.get("/admin/view-product/:id", getAdminViewProduct);
+  router.post(
+    "/admin/handle-update-product",
+    fileUploadMiddleware("image", "images/product"),
+    postAdminUpdateProduct,
   );
 
   // Order

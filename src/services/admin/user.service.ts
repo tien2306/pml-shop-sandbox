@@ -7,7 +7,7 @@ const hashPassword = async (plainText: string) => {
   return await bcrypt.hash(plainText, saltRounds);
 };
 
-const handleCreateUser = async (
+const createAUser = async (
   fullname: string,
   email: string,
   address: string,
@@ -43,7 +43,7 @@ const getAllRoles = async () => {
   return roles;
 };
 
-const handleDeleteUser = async (id: string) => {
+const deleteUserById = async (id: string) => {
   await prisma.user.delete({ where: { id: +id } });
 };
 
@@ -78,9 +78,9 @@ const updateUserById = async (
 };
 
 export {
-  handleCreateUser,
+  createAUser,
   getAllUsers,
-  handleDeleteUser,
+  deleteUserById,
   getUserById,
   updateUserById,
   getAllRoles,

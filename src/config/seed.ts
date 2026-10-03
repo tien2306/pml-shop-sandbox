@@ -1,4 +1,4 @@
-import { hashPassword } from "services/user.service";
+import { hashPassword } from "services/admin/user.service";
 import { prisma } from "config/database";
 import { ACCOUNT_TYPE } from "config/constant";
 
