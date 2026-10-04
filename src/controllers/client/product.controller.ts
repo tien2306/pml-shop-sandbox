@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { getAllUsers } from "services/admin/user.service";
+import { getProductById } from "services/client/product.service";
+import { formatPrice } from "helper/format";
 
-const getDetailProductPage = async (req: Request, res: Response) => {
-  //get data
-  const users = await getAllUsers();
-  // console.log(users);
-  return res.render("client/product/detail.ejs", { users });
+const getProductPageById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const product = await getProductById(+id);
+
+  return res.render("client/product/detail.ejs", { product, formatPrice });
 };
 
-export { getDetailProductPage };
+export { getProductPageById };
