@@ -9,7 +9,7 @@
   "module": "NodeNext",
   "moduleResolution": "NodeNext",
   "scripts": {
-    "build": "prisma generate",
+    "postinstall": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
     "dev": "nodemon",
