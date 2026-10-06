@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "bt-2",
   "version": "1.0.0",
   "description": "",
@@ -8,16 +8,17 @@
   "main": "dist/app.js",
   "module": "NodeNext",
   "moduleResolution": "NodeNext",
-  "scripts": { "build": "prisma generate",
+  "scripts": {
+    "build": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
     "dev": "nodemon",
     "start:debug": "nodemon --inspect=9229 -e ts,tsx --exec node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
-    "_ghi_chu_1": "nodemon: Tá»± Ä‘á»™ng khá»Ÿi Ä‘á»™ng láº¡i server khi lÆ°u file (Ctrl + S).",
-    "_ghi_chu_2": "--inspect=9229: Má»Ÿ cá»•ng debug 9229 Ä‘á»ƒ VS Code nháº£y vĂ o báº¯t cháº¥m Ä‘á».",
-    "_ghi_chu_3": "-e ts,tsx: Chá»‰ canh chá»«ng sá»± thay Ä‘á»•i cá»§a file Ä‘uĂ´i .ts vĂ  .tsx.",
-    "_ghi_chu_4": "--exec node -r ts-node/register: Bá»™ dá»‹ch cáº¥p tá»‘c giĂºp Node hiá»ƒu Ä‘Æ°á»£c TypeScript.",
-    "_ghi_chu_5": "./src/app.ts: File cháº¡y chĂ­nh cá»§a dá»± Ă¡n."
+    "_ghi_chu_1": "nodemon: Tự động khởi động lại server khi lưu file (Ctrl + S).",
+    "_ghi_chu_2": "--inspect=9229: Mở cổng debug 9229 để VS Code nhảy vào bắt chấm đỏ.",
+    "_ghi_chu_3": "-e ts,tsx: Chỉ canh chừng sự thay đổi của file đuôi .ts và .tsx.",
+    "_ghi_chu_4": "--exec node -r ts-node/register: Bộ dịch cấp tốc giúp Node hiểu được TypeScript.",
+    "_ghi_chu_5": "./src/app.ts: File chạy chính của dự án."
   },
   "nodemonConfig": {
     "watch": [
