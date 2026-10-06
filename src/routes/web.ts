@@ -1,28 +1,28 @@
 import express, { Express } from "express"; //const express = require('express)
 const router = express.Router();
 import fileUploadMiddleware from "../middleware/multer";
-import { getHomePage } from "controllers/client/home.controller";
-import { getProductPageById } from "controllers/client/product.controller";
+import { getHomePage } from "../controllers/client/home.controller";
+import { getProductPageById } from "../controllers/client/product.controller";
 import {
   getAdminOrderPage,
   getAdminProductPage,
   getAdminUserPage,
   getDashboardPage,
-} from "controllers/admin/dashborad.controller";
+} from "../controllers/admin/dashborad.controller";
 import {
   getAdminCreateUserPage,
   postAdminCreateUser,
   postAdminDeleteUser,
   getAdminViewUser,
   postAdminUpdateUser,
-} from "controllers/admin/user.controller";
+} from "../controllers/admin/user.controller";
 import {
   getAdminCreatePruductPage,
   getAdminViewProduct,
   postAdminCreatePruduct,
   postAdminDeleteProduct,
   postAdminUpdateProduct,
-} from "controllers/admin/product.controller";
+} from "../controllers/admin/product.controller";
 
 const webRoutes = (app: Express) => {
   //client routes

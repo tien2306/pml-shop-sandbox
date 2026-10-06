@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getProducts } from "services/client/product.service";
-import { formatPrice } from "helper/format";
+import { getProducts } from "../../services/client/product.service";
+import { formatPrice } from "../../helper/format";
 
 const getHomePage = async (req: Request, res: Response) => {
   //get data

@@ -1,4 +1,4 @@
-import { prisma } from "config/database";
+import { prisma } from "../../config/database";
 
 const getProducts = async () => {
   return await prisma.product.findMany();

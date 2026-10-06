@@ -2,7 +2,7 @@ import "dotenv/config"; // require("dotenv").config();
 import express from "express"; //const epress = require("express")
 import path from "path"; // const path = require("path");
 import webRoutes from "./routes/web";
-import initDatabase from "config/seed";
+import initDatabase from "./config/seed";
 
 // bước chuẩn bị
 const app = express();

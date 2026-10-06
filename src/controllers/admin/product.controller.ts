@@ -5,7 +5,7 @@ import {
   deleteProductById,
   getProductById,
   updateProductById,
-} from "services/admin/product.service";
+} from "../../services/admin/product.service";
 
 const factoryOptions = [
   { name: "Apple (MacBook)", value: "APPLE" },

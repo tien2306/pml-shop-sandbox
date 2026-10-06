@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getProductList } from "services/admin/product.service";
-import { getAllUsers } from "services/admin/user.service";
+import { getProductList } from "../../services/admin/product.service";
+import { getAllUsers } from "../../services/admin/user.service";
 
 const getDashboardPage = async (req: Request, res: Response) => {
   return res.render("admin/dashboard/show.ejs");

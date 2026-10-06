@@ -1,5 +1,5 @@
-import { ACCOUNT_TYPE } from "config/constant";
-import { prisma } from "config/database";
+import { ACCOUNT_TYPE } from "../../config/constant";
+import { prisma } from "../../config/database";
 import bcrypt from "bcrypt";
 const saltRounds = 10;
 

@@ -5,7 +5,7 @@ import {
   createAUser,
   deleteUserById,
   updateUserById,
-} from "services/admin/user.service";
+} from "../../services/admin/user.service";
 
 // C - create user
 const getAdminCreateUserPage = async (req: Request, res: Response) => {
