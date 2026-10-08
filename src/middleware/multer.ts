@@ -8,7 +8,8 @@ const fileUploadMiddleware = (fieldName: string, dir: string = "images") => {
 
   return multer({
     storage: multer.diskStorage({
-      destination: uploadDest, // Nơi lưu file
+      // destination: uploadDest, // Nơi lưu file
+      destination: "public/" + dir, // Nơi lưu file
       filename: (req, file, cb) => {
         const extension = path.extname(file.originalname); // Lấy đuôi file (ví dụ: .jpg)
         cb(null, v4() + extension); // Đổi tên file thành chuỗi ngẫu nhiên + đuôi file

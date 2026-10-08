@@ -34,6 +34,7 @@
   "dependencies": {
     "@prisma/adapter-mariadb": "7.10.0",
     "@prisma/client": "7.10.0",
+    "@quixo3/prisma-session-store": "3.1.21",
     "bcrypt": "6.0.0",
     "dotenv": "16.4.7",
     "ejs": "3.1.10",

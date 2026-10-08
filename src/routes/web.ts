@@ -1,4 +1,4 @@
-import express, { Express } from "express"; //const express = require('express)
+﻿import express, { Express } from "express"; //const express = require('express)
 const router = express.Router();
 import fileUploadMiddleware from "../middleware/multer";
 import { getHomePage } from "../controllers/client/home.controller";
@@ -23,11 +23,28 @@ import {
   postAdminDeleteProduct,
   postAdminUpdateProduct,
 } from "../controllers/admin/product.controller";
+import {
+  getLoginPage,
+  getRegisterPage,
+  postRegister,
+} from "../controllers/client/auth.controller";
+import passport from "passport";
 
 const webRoutes = (app: Express) => {
   //client routes
   router.get("/", getHomePage);
   router.get("/product/:id", getProductPageById);
+  router.get("/login", getLoginPage);
+  router.post(
+    "/login",
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+      failureMessage: true,
+    }),
+  );
+  router.get("/register", getRegisterPage);
+  router.post("/register", postRegister);
 
   //admin routes
   // User
@@ -71,7 +88,7 @@ const webRoutes = (app: Express) => {
   // Order
   router.get("/admin/order", getAdminOrderPage);
 
-  // khai báo route
+  // khai bĂ¡o route
   app.use("/", router);
 };
 

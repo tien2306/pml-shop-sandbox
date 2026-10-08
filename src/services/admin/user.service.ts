@@ -1,11 +1,6 @@
 import { ACCOUNT_TYPE } from "../../config/constant";
 import { prisma } from "../../config/database";
-import bcrypt from "bcrypt";
-const saltRounds = 10;
-
-const hashPassword = async (plainText: string) => {
-  return await bcrypt.hash(plainText, saltRounds);
-};
+import { hashPassword } from "../auth/bcrypt.service";
 
 const createAUser = async (
   fullname: string,
