@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   RegisterSchema,
   TRegisterSchema,
@@ -49,4 +49,29 @@ const postRegister = async (req: Request, res: Response) => {
   }
 };
 
-export { getLoginPage, getRegisterPage, postRegister };
+const getSuccessRegirectPage = async (req: Request, res: Response) => {
+  const user = req.user as any;
+
+  if (user?.role?.name === "ADMIN") {
+    return res.redirect("/admin");
+  } else {
+    return res.redirect("/");
+  }
+};
+
+const postLogout = async (req: Request, res: Response, next: NextFunction) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
+
+export {
+  getLoginPage,
+  getRegisterPage,
+  postRegister,
+  getSuccessRegirectPage,
+  postLogout,
+};

@@ -13,23 +13,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
     "dev": "nodemon",
-    "start:debug": "nodemon --inspect=9229 -e ts,tsx --exec node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "start:debug": "nodemon --inspect=9229",
+    "start:debug_detail": "nodemon --inspect=9229 -e ts,tsx --exec node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
     "_ghi_chu_1": "nodemon: Tự động khởi động lại server khi lưu file (Ctrl + S).",
-    "_ghi_chu_2": "--inspect=9229: Mở cổng debug 9229 để VS Code nhảy vào bắt chấm đỏ.",
-    "_ghi_chu_3": "-e ts,tsx: Chỉ canh chừng sự thay đổi của file đuôi .ts và .tsx.",
-    "_ghi_chu_4": "--exec node -r ts-node/register: Bộ dịch cấp tốc giúp Node hiểu được TypeScript.",
-    "_ghi_chu_5": "./src/app.ts: File chạy chính của dự án."
+    "_ghi_chu_2": "--inspect=9229: Mở cổng debug 9229 để VS Code nhảy vào bắt chấm đỏ."
   },
   "nodemonConfig": {
     "watch": [
       "src",
       ".env"
     ],
-    "ext": "ts",
+    "ext": "ts,tsx",
     "ignore": [
       "node_modules"
     ],
-    "exec": "ts-node -r tsconfig-paths/register ./src/app.ts"
+    "exec": "ts-node -r tsconfig-paths/register ./src/app.ts",
+    "_ghi_chu_3": "ext: extension có nghĩa chỉ theo dõi sự thay đổi có đuôi file là ts or tsx",
+    "_ghi_chu_4": "--exec node -r ts-node/register: chạy cái ts-node để đọc cấu hình ts-config, config path, và thực thi dự án"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "7.10.0",

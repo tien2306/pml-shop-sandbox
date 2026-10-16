@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { prisma } from "../config/database";
 import { comparePassword } from "../services/auth/bcrypt.service";
-import { getUserById } from "services/admin/user.service";
+import { getUserWithRoleById } from "services/auth/auth.service";
 // import { User } from "@prisma/client";
 
 const configPassportLocal = () => {
@@ -14,6 +14,7 @@ const configPassportLocal = () => {
       },
       async function verify(req, username, password, callback) {
         try {
+          // xóa thông báo lỗi cũ
           const session = req.session as any;
           if (session && session.messages) {
             session.messages = [];
@@ -38,7 +39,8 @@ const configPassportLocal = () => {
             });
           }
 
-          return callback(null, user);
+          const userWithRole = await getUserWithRoleById(String(user.id));
+          return callback(null, userWithRole ?? false);
         } catch (error) {
           // Nếu DB lỗi (timeout, mất kết nối...), chuyển lỗi về cho Express xử lý thay vì crash app
           return callback(error);
@@ -54,13 +56,11 @@ const configPassportLocal = () => {
   });
 
   // Client khi có req nào đó nó sẽ gửi kèm cookie lên trong đó có session id
-  // thư viện kt(giải mã) cái đối tượng Session id đó nếu trong database Session có thì mới trả về cái user trong session
+  // thư viện kt(giải mã) cái đối tượng Session id đó, nếu trong database Session có thì mới trả về cái user trong session
   // Từ cái user trong session đó query lấy thống tin người dùng đó gán vào -> `req.user`
   passport.deserializeUser(async function (user: any, cb) {
-    const { id, username } = user;
-    // query to database '
-    const userInDB = await getUserById(id);
-    return cb(null, { ...userInDB });
+    const userInDB = await getUserWithRoleById(user.id);
+    return cb(null, userInDB ?? false);
   });
 };
 

@@ -14,6 +14,7 @@
     "strict": true /* Bắt buộc định nghĩa rõ kiểu dữ liệu */,
     "forceConsistentCasingInFileNames": true /* Bắt lỗi nếu viết sai chữ hoa/thường ở tên file */,
     "skipLibCheck": true /* Bỏ qua kiểm tra lỗi trong node_modules để dịch nhanh hơn */,
+    "strictNullChecks": true /* báo lỗi khi 1 giá trị có thể là null */,
 
     //  4. HỖ TRỢ PHÁT TRIỂN & DEBUG
     "sourceMap": true /* Tạo file bản đồ giúp debug trực tiếp trên file .ts */,
@@ -27,6 +28,7 @@
       "routes/*": ["./src/routes/*"],
       "services/*": ["./src/services/*"],
       "helper/*": ["./src/helper/*"],
+      "middlware/*": ["./src/middleware/*"]
     }
   },
 
@@ -39,5 +41,9 @@
   "exclude": [
     "node_modules",
     "dist"
-  ] /* Thư mục bị bỏ qua để tiết kiệm tài nguyên */
+  ] /* Thư mục bị bỏ qua để tiết kiệm tài nguyên */,
+
+  "ts-node": {
+    "files": true
+  } /* bật chế độ đọc các file theo danh sách trong tsconfig */
 }

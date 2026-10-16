@@ -1,5 +1,6 @@
+/// <reference path="./types/user.d.ts" /> // fix cái ts-node
 import "dotenv/config"; // require("dotenv").config();
-import express, { Request, Response } from "express"; //const epress = require("express")
+import express, { Request, Response, NextFunction } from "express"; //const epress = require("express")
 import path from "path"; // const path = require("path");
 import webRoutes from "./routes/web";
 import initDatabase from "./config/seed";
@@ -62,6 +63,14 @@ app.use(passport.authenticate("session"));
 // cấu hình ntn? khai báo cho passport biết dùng chiến lược xác thực đăng nhập nào
 configPassportLocal();
 
+//config global
+// tất cả các file .ejs đều tự động đọc được mà bạn không cần phải truyền thủ công
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.locals.user = req.user || {};
+  // res.locals.authenticated = !(req.user as any)?.anonymous;
+  next();
+});
+
 //config route
 webRoutes(app);
 
@@ -70,7 +79,8 @@ initDatabase();
 
 //handle not found 404
 app.use((req: Request, res: Response) => {
-  res.send("404 not found");
+  // res.send("404 not found");
+  res.render("status/404.ejs");
 });
 
 // bước chạy server
