@@ -29,8 +29,13 @@ model User {
   phone       String? @db.VarChar(255)
   accountType String  @db.VarChar(50)
   avatar      String? @db.VarChar(255)
-  role        Role?   @relation(fields: [roleId], references: [id])
-  roleId      Int?
+
+  role   Role? @relation(fields: [roleId], references: [id]) // gợi ý code, hỗ trợ code của prisma
+  roleId Int? // có thực dưới database
+
+  cart Cart?
+
+  orders Order[]
 
   @@map("users")
 }
@@ -42,13 +47,6 @@ model Role {
   users       User[]
 
   @@map("roles")
-}
-
-model Order {
-  id          Int @id @default(autoincrement())
-  totalPricee Int
-
-  @@map("orders")
 }
 
 model Product {
@@ -63,5 +61,68 @@ model Product {
   factory    String  @db.VarChar(255)
   target     String  @db.VarChar(255)
 
+  cartDetails  CartDetail[]
+  orderDetails OrderDetail[]
+
   @@map("products")
+}
+
+model Cart {
+  id  Int @id @default(autoincrement())
+  sum Int
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+
+  cartDetails CartDetail[]
+
+  @@map("carts")
+}
+
+model CartDetail {
+  id       Int @id @default(autoincrement())
+  quantity Int @default(1)
+  price    Int
+
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  cartId Int  @map("cart_id")
+  cart   Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  @@map("cart_detail")
+}
+
+model Order {
+  id              Int    @id @default(autoincrement())
+  totalPricee     Int
+  receiverAddress String @db.VarChar(255)
+  receiverName    String @db.VarChar(255)
+  receiverPhone   String @db.VarChar(255)
+
+  status        String  @default("PENDING") //PENDING, CANCELED, COMPLETE,
+  paymentMethod String //COD, BANKING...
+  paymentStatus String //PAYMENT_UNPAID, PAYMENT_SUCCED, PAYMENT_FAILED
+  paymentRef    String?
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+
+  orderDetails OrderDetail[]
+
+  @@map("orders")
+}
+
+model OrderDetail {
+  id       Int @id @default(autoincrement())
+  price    Int
+  quantity Int
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id])
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("order_detail")
 }

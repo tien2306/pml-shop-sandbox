@@ -2,7 +2,10 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { prisma } from "../config/database";
 import { comparePassword } from "../services/auth/bcrypt.service";
-import { getUserWithRoleById } from "services/auth/auth.service";
+import {
+  getUserSumCart,
+  getUserWithRoleById,
+} from "services/auth/auth.service";
 // import { User } from "@prisma/client";
 
 const configPassportLocal = () => {
@@ -39,7 +42,7 @@ const configPassportLocal = () => {
             });
           }
 
-          const userWithRole = await getUserWithRoleById(String(user.id));
+          const userWithRole = await getUserWithRoleById(user.id);
           return callback(null, userWithRole ?? false);
         } catch (error) {
           // Nếu DB lỗi (timeout, mất kết nối...), chuyển lỗi về cho Express xử lý thay vì crash app
@@ -51,16 +54,26 @@ const configPassportLocal = () => {
 
   // serializeUser: Mã hóa thôn tin nhận đc và Lưu vào Session
   // trả về session id cho cookie người dùng
-  passport.serializeUser(function (user: any, cb) {
+  passport.serializeUser(function (user: Express.User, cb) {
     cb(null, { id: user.id, username: user.username });
   });
 
   // Client khi có req nào đó nó sẽ gửi kèm cookie lên trong đó có session id
   // thư viện kt(giải mã) cái đối tượng Session id đó, nếu trong database Session có thì mới trả về cái user trong session
   // Từ cái user trong session đó query lấy thống tin người dùng đó gán vào -> `req.user`
-  passport.deserializeUser(async function (user: any, cb) {
-    const userInDB = await getUserWithRoleById(user.id);
-    return cb(null, userInDB ?? false);
+  passport.deserializeUser(async function (user: Express.User, cb) {
+    const { id } = user;
+    //query to database
+    const userInDB = await getUserWithRoleById(id);
+    const sumCart = await getUserSumCart(id);
+
+    if (!userInDB) {
+      return cb(null, false);
+    }
+
+    const finalUser = { ...userInDB, sumCart: sumCart };
+
+    return cb(null, finalUser ?? false);
   });
 };
 

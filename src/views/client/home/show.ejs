@@ -224,10 +224,16 @@
                                                                         <div class="product-price text-center">
                                                                             <%= formatPrice(product.price) %>
                                                                         </div>
-                                                                        <div class="btn-add-cart">
-                                                                            <i class="fa fa-shopping-bag me-1"></i> Thêm
-                                                                            giỏ hàng
-                                                                        </div>
+                                                                        <form method="post"
+                                                                            action="/add-product-to-cart/<%= product.id %>">
+                                                                            <button
+                                                                                class="mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                                                                <i
+                                                                                    class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                                Thêm giỏ hàng
+                                                                            </button>
+                                                                        </form>
+
                                                                     </div>
                                                                 </div>
                                                             </a>

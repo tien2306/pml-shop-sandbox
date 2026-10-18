@@ -131,21 +131,66 @@
 
 
 
-    // Product Quantity
+    // Product Quantity (Tăng / Giảm số lượng)
     $('.quantity button').on('click', function () {
         var button = $(this);
-        var oldValue = button.parent().parent().find('input').val();
+        var input = button.closest('.quantity').find('input');
+        var oldValue = parseFloat(input.val()) || 1;
+        var newVal = 1;
+
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = oldValue + 1;
         } else {
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+            // "1 là hết đát": nếu đang là 1 thì giữ nguyên 1, không cho về 0 hay số âm
+            if (oldValue > 1) {
+                newVal = oldValue - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
-        button.parent().parent().find('input').val(newVal);
+
+        input.val(newVal).trigger('change');
     });
+
+    // Lắng nghe sự kiện khi số lượng thay đổi (bấm nút hoặc tự nhập tay)
+    $('.quantity input').on('change', function () {
+        var input = $(this);
+        var val = parseFloat(input.val());
+
+        // Kiểm tra hợp lệ: nếu nhập chữ hoặc số <= 0 thì tự reset về 1
+        if (isNaN(val) || val < 1) {
+            val = 1;
+            input.val(1);
+        }
+
+        // Nếu input nằm trong dòng sản phẩm giỏ hàng (thẻ tr có data-price)
+        var row = input.closest('tr[data-price]');
+        if (row.length > 0) {
+            var price = parseFloat(row.data('price')) || 0;
+            var subtotal = price * val;
+
+            // 1. Cập nhật thành tiền của dòng đó
+            row.find('.cart-item-total').text(new Intl.NumberFormat('vi-VN').format(subtotal) + ' đ');
+
+            // 2. Cập nhật lại tổng đơn hàng bên dưới
+            updateCartOrderSummary();
+        }
+    });
+
+    // Hàm tính lại Tạm Tính và Tổng Đơn Hàng
+    function updateCartOrderSummary() {
+        var grandTotal = 0;
+        $('tr[data-price]').each(function () {
+            var row = $(this);
+            var price = parseFloat(row.data('price')) || 0;
+            var qty = parseFloat(row.find('.cart-qty-input').val()) || 1;
+            grandTotal += price * qty;
+        });
+
+        var formattedTotal = new Intl.NumberFormat('vi-VN').format(grandTotal) + ' đ';
+        $('#order-subtotal').text(formattedTotal);
+        $('#order-total').text(formattedTotal);
+    }
 
 })(jQuery);
 

@@ -7,6 +7,8 @@ type UserWithRole = Prisma.UserGetPayload<{
 
 declare global {
   namespace Express {
-    interface User extends UserWithRole {}
+    interface User extends UserWithRole {
+      sumCart?: number;
+    }
   }
 }

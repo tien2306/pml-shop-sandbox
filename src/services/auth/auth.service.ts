@@ -39,7 +39,7 @@ const registerNewUser = async (
   }
 };
 
-const getUserWithRoleById = async (id: string) => {
+const getUserWithRoleById = async (id: number) => {
   const user = await prisma.user.findUnique({
     relationLoadStrategy: "join",
     where: { id: +id },
@@ -53,4 +53,11 @@ const getUserWithRoleById = async (id: string) => {
   return user;
 };
 
-export { isEmailExist, registerNewUser, getUserWithRoleById };
+const getUserSumCart = async (id: number) => {
+  const user = await prisma.cart.findUnique({
+    where: { userId: +id },
+  });
+  return user?.sum ?? 0;
+};
+
+export { isEmailExist, registerNewUser, getUserWithRoleById, getUserSumCart };

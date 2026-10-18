@@ -2,7 +2,13 @@
 const router = express.Router();
 import fileUploadMiddleware from "../middleware/multer";
 import { getHomePage } from "../controllers/client/home.controller";
-import { getProductPageById } from "../controllers/client/product.controller";
+import {
+  getCartPage,
+  getCheckOutPage,
+  getProductPageById,
+  postAddProductToCart,
+  postDeleteProductInCart,
+} from "../controllers/client/product.controller";
 import {
   getAdminOrderPage,
   getAdminProductPage,
@@ -36,8 +42,10 @@ import { isAdmin, isLogin } from "middlware/auth";
 const webRoutes = (app: Express) => {
   //client routes
   router.get("/", getHomePage);
-  router.get("/success-redirect", getSuccessRegirectPage);
+  // Product
   router.get("/product/:id", getProductPageById);
+  // Auth
+  router.get("/success-redirect", getSuccessRegirectPage);
   router.get("/login", getLoginPage);
   router.post(
     "/login",
@@ -50,6 +58,11 @@ const webRoutes = (app: Express) => {
   router.post("/logout", postLogout);
   router.get("/register", getRegisterPage);
   router.post("/register", postRegister);
+  // Cart
+  router.post("/add-product-to-cart/:id", postAddProductToCart);
+  router.get("/cart", getCartPage);
+  router.post("/delete-product-in-cart/:id", postDeleteProductInCart);
+  router.get("/checkout", getCheckOutPage);
 
   //admin routes
   // User
