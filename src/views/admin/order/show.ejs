@@ -29,9 +29,51 @@
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Orders</li>
                             </ol>
-                            <div>table orders</div>
                         </div>
 
+
+                        <div class="container-fluid px-4">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>User</th>
+                                        <th>Total Price</th>
+                                        <th>Status</th>
+                                        <th>Paymemt Method</th>
+                                        <th>Paymemt Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <%= orders.id %>
+                                        </td>
+                                        <td>
+                                            <%= user.fullName %>
+                                        </td>
+                                        <td>
+                                            <%= orders.totalPricee %>
+                                        </td>
+                                        <td>
+                                            <%= orders.status %>
+                                        </td>
+                                        <td>
+                                            <%= orders.paymentMethod %>
+                                        </td>
+                                        <td>
+                                            <%= orders.paymentStatus %>
+                                        </td>
+                                        <td style="display: flex; gap: 5px;">
+                                            <a href="/admin/view-order/<%= orders.id %>" class="btn btn-primary">
+                                                View Detail Product
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </main>
 
                     <!-- footer -->

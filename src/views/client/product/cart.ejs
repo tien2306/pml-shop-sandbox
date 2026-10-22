@@ -81,131 +81,152 @@
         <!-- Cart Page Start -->
         <div class="container-fluid py-5">
             <div class="container py-5">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sản Phẩm</th>
-                                <th scope="col">Tên</th>
-                                <th scope="col">Giá cả</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Tổng</th>
-                                <th scope="col">Xử lý</th>
-                            </tr>
-                        </thead>
+                <form action="/handle-cart-to-checkout" method="POST" id="cartForm">
+                    <% if (cartDetails && cartDetails.length> 0) { %>
+                        <input type="hidden" name="cartId" value="<%= cartDetails[0].cartId %>">
+                        <% } %>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Sản Phẩm</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Giá cả</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Tổng</th>
+                                            <th scope="col">Xử lý</th>
+                                        </tr>
+                                    </thead>
 
-                        <tbody>
-                            <% if (cartDetails && cartDetails.length> 0) { %>
-                                <% cartDetails.forEach(item=> { %>
-                                    <tr data-cart-detail-id="<%= item.id %>" data-price="<%= item.price %>">
-                                        <th scope="row">
-                                            <div class="d-flex align-items-center">
-                                                <!-- Kiểm tra ảnh sản phẩm -->
-                                                <img src="/images/product/<%= item.product.image %>"
-                                                    class="img-fluid me-5 rounded-circle"
-                                                    style="width: 80px; height: 80px;" alt="Product">
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <!-- Kiểm tra tên sản phẩm -->
-                                            <a target="_blank" href="/product/<%= item.product.id %>">
-                                                <p class="mb-0 mt-4">
-                                                    <%= (item.product && item.product.name) ? item.product.name
-                                                        : 'Sản phẩm không tồn tại' %>
-                                                </p>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <!-- Kiểm tra giá tiền -->
-                                            <p class="mb-0 mt-4">
-                                                <%= item.price ? item.price.toLocaleString('vi-VN') : 0 %> đ
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <div class="input-group quantity mt-4" style="width: 100px;">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                        <i class="fa fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                                <input type="text"
-                                                    class="form-control form-control-sm text-center border-0 cart-qty-input"
-                                                    value="<%= item.quantity %>">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                        <i class="fa fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <!-- Tính tổng tiền từng dòng -->
-                                            <p class="mb-0 mt-4 cart-item-total">
-                                                <%= ((item.price || 0) * (item.quantity || 0)).toLocaleString('vi-VN')
-                                                    %> đ
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <form action="/delete-product-in-cart/<%= item.id %>" method="post">
-                                                <button class="btn btn-md rounded-circle bg-light border mt-4"
-                                                    data-id="<%= item.id %>">
-                                                    <i class="fa fa-times text-danger"></i>
-                                                </button>
+                                    <tbody>
+                                        <% if (cartDetails && cartDetails.length> 0) { %>
+                                            <% cartDetails.forEach(item=> { %>
+                                                <tr data-cart-detail-id="<%= item.id %>" data-price="<%= item.price %>">
+                                                    <th scope="row">
+                                                        <div class="d-flex align-items-center">
+                                                            <!-- Kiểm tra ảnh sản phẩm -->
+                                                            <img src="/images/product/<%= item.product.image %>"
+                                                                class="img-fluid me-5 rounded-circle"
+                                                                style="width: 80px; height: 80px;" alt="Product">
+                                                        </div>
+                                                    </th>
 
-                                            </form>
+                                                    <td>
+                                                        <!-- Kiểm tra tên sản phẩm -->
+                                                        <a target="_blank" href="/product/<%= item.product.id %>">
+                                                            <p class="mb-0 mt-4">
+                                                                <%= (item.product && item.product.name) ?
+                                                                    item.product.name : 'Sản phẩm không tồn tại' %>
+                                                            </p>
+                                                        </a>
+                                                    </td>
 
-                                        </td>
-                                    </tr>
-                                    <% }) %>
-                                        <% } else { %>
-                                            <tr>
-                                                <td colspan="6" class="text-center py-5">
-                                                    <p class="text-muted mb-0">Giỏ hàng của bạn đang trống.</p>
-                                                </td>
-                                            </tr>
-                                            <% } %>
-                        </tbody>
+                                                    <td>
+                                                        <!-- Kiểm tra giá tiền -->
+                                                        <p class="mb-0 mt-4">
+                                                            <%= item.price ? item.price.toLocaleString('vi-VN') : 0 %> đ
+                                                        </p>
+                                                    </td>
 
-                    </table>
-                </div>
+                                                    <td>
+                                                        <!-- gom tất cả các ô input có cùng tên này lại thành một Mảng có giá trị là value  -->
+                                                        <input type="hidden" name="cartDetailIds[]"
+                                                            value="<%= item.id %>">
 
-                <div class="row g-4 justify-content-end">
-                    <div class="col-12">
-                        <% if (cartDetails && cartDetails.length> 0) { %>
-                            <div class="bg-light rounded">
-                                <div class="p-4">
-                                    <h1 class="display-6 mb-4">Thông Tin <span class="fw-normal">Đơn Hàng</span></h1>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="mb-0 me-4">Tạm Tính:</h5>
-                                        <p class="mb-0" id="order-subtotal">
-                                            <%= formatPrice(totalPrice) %>
-                                        </p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <h5 class="mb-0 me-4">Phí Vận Chuyển</h5>
-                                        <div>
-                                            <p class="mb-0">0 đ</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                    <h5 class="mb-0 ps-4 me-4">Tổng</h5>
-                                    <p class="mb-0 pe-4 fw-bold text-danger" id="order-total">
-                                        <%= formatPrice(totalPrice) %>
-                                    </p>
-                                </div>
-                                <form action="/checkout" method="get">
-                                    <button
-                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                                        type="submit">
-                                        Thanh Toán Ngay
-                                    </button>
-                                </form>
+                                                        <div class="input-group quantity mt-4" style="width: 100px;">
+                                                            <!-- Trừ 1 sản phẩm -->
+                                                            <div class="input-group-btn">
+                                                                <button type="button"
+                                                                    class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                                    <i class="fa fa-minus"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <input type="text" name="quantities[]"
+                                                                class="form-control form-control-sm text-center border-0 cart-qty-input"
+                                                                value="<%= item.quantity %>">
+
+                                                            <!-- Cộng 1 sản phẩm -->
+                                                            <div class="input-group-btn">
+                                                                <button type="button"
+                                                                    class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <!-- Tính tổng tiền từng dòng -->
+                                                        <p class="mb-0 mt-4 cart-item-total">
+                                                            <%= ((item.price || 0) * (item.quantity ||
+                                                                0)).toLocaleString('vi-VN') %> đ
+                                                        </p>
+                                                    </td>
+
+                                                    <td>
+                                                        <!-- Xử lý xóa sản phẩm -->
+                                                        <button type="submit"
+                                                            formaction="/delete-product-in-cart/<%= item.id %>"
+                                                            formmethod="POST"
+                                                            class="btn btn-md rounded-circle bg-light border mt-4"
+                                                            data-id="<%= item.id %>">
+                                                            <i class="fa fa-times text-danger"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                                    <% } else { %>
+                                                        <tr>
+                                                            <td colspan="6" class="text-center py-5">
+                                                                <p class="text-muted mb-0">Giỏ hàng của bạn đang trống.
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <% } %>
+                                    </tbody>
+
+                                </table>
                             </div>
-                            <% } %>
-                    </div>
-                </div>
 
+                            <div class="row g-4 justify-content-end">
+                                <div class="col-12">
+                                    <% if (cartDetails && cartDetails.length> 0) { %>
+                                        <div class="bg-light rounded">
+                                            <div class="p-4">
+                                                <h1 class="display-6 mb-4">Thông Tin <span class="fw-normal">Đơn
+                                                        Hàng</span>
+                                                </h1>
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <h5 class="mb-0 me-4">Tạm Tính:</h5>
+                                                    <p class="mb-0" id="order-subtotal">
+                                                        <%= formatPrice(totalPrice) %>
+                                                    </p>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h5 class="mb-0 me-4">Phí Vận Chuyển</h5>
+                                                    <div>
+                                                        <p class="mb-0">0 đ</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                                                <h5 class="mb-0 ps-4 me-4">Tổng</h5>
+                                                <p class="mb-0 pe-4 fw-bold text-danger" id="order-total">
+                                                    <%= formatPrice(totalPrice) %>
+                                                </p>
+                                            </div>
+                                            <button
+                                                class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                                                type="submit">
+                                                Thanh Toán Ngay
+                                            </button>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </div>
+                </form>
             </div>
         </div>
         <!-- Cart Page End -->

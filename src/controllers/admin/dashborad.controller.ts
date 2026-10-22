@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
 import { getProductList } from "../../services/admin/product.service";
 import { getAllUsers } from "../../services/admin/user.service";
+import { getOrderList } from "services/admin/order.service";
+import { getDashboardInfo } from "services/admin/dashboard.service";
 
 const getDashboardPage = async (req: Request, res: Response) => {
-  return res.render("admin/dashboard/show.ejs");
+  const info = await getDashboardInfo();
+
+  return res.render("admin/dashboard/show.ejs", { info });
 };
 
 const getAdminUserPage = async (req: Request, res: Response) => {
@@ -17,7 +21,10 @@ const getAdminProductPage = async (req: Request, res: Response) => {
 };
 
 const getAdminOrderPage = async (req: Request, res: Response) => {
-  return res.render("admin/order/show.ejs");
+  const user = req.user as Express.User;
+  const orders = await getOrderList(user.id);
+
+  return res.render("admin/order/show.ejs", { orders });
 };
 
 export {

@@ -2,13 +2,19 @@
 const router = express.Router();
 import fileUploadMiddleware from "../middleware/multer";
 import { getHomePage } from "../controllers/client/home.controller";
+import { getProductPageById } from "../controllers/client/product.controller";
 import {
   getCartPage,
-  getCheckOutPage,
-  getProductPageById,
   postAddProductToCart,
+  postCartToCheckout,
   postDeleteProductInCart,
-} from "../controllers/client/product.controller";
+} from "../controllers/client/cart.controller";
+import {
+  getCheckOutPage,
+  getOrderHistoryPage,
+  getThanksPage,
+  postPlaceOrder,
+} from "../controllers/client/order.controller";
 import {
   getAdminOrderPage,
   getAdminProductPage,
@@ -38,6 +44,7 @@ import {
 } from "controllers/client/auth.controller";
 import passport from "passport";
 import { isAdmin, isLogin } from "middlware/auth";
+import { getAdminOrderDetailPage } from "controllers/admin/order.controller";
 
 const webRoutes = (app: Express) => {
   //client routes
@@ -62,11 +69,17 @@ const webRoutes = (app: Express) => {
   router.post("/add-product-to-cart/:id", postAddProductToCart);
   router.get("/cart", getCartPage);
   router.post("/delete-product-in-cart/:id", postDeleteProductInCart);
+  router.post("/handle-cart-to-checkout", postCartToCheckout);
+  //order
   router.get("/checkout", getCheckOutPage);
+  router.post("/place-order", postPlaceOrder);
+  router.get("/thanks", getThanksPage);
+  router.get("/order-history", getOrderHistoryPage);
 
   //admin routes
-  // User
+  //dashboard
   router.get("/admin", getDashboardPage);
+  // User
   router.get("/admin/user", getAdminUserPage);
   router.get("/admin/create-user", getAdminCreateUserPage);
   router.post(
@@ -100,6 +113,7 @@ const webRoutes = (app: Express) => {
 
   // Order
   router.get("/admin/order", getAdminOrderPage);
+  router.get("/admin/view-order/:id", getAdminOrderDetailPage);
 
   // khai bao route
   app.use("/", isLogin, isAdmin, router);

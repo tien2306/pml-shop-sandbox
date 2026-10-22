@@ -95,26 +95,37 @@
 
 
 
-                                    <!-- phần thêm bớt số lượng -->
-                                    <div class="input-group quantity mb-5" style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0"
-                                            value="1">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <!-- form thêm vào giỏ hàng -->
+                                    <form action="/add-product-to-cart/<%= product.id %>" method="post">
+                                        <!-- phần thêm bớt số lượng -->
+                                        <div class="input-group quantity mt-4 mb-4" style="width: 100px;">
+                                            <!-- Trừ 1 sản phẩm -->
+                                            <div class="input-group-btn">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                            </div>
 
-                                    <!-- nút thêm vào giỏ hàng -->
-                                    <a href="#"
-                                        class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                            class="fa fa-shopping-bag me-2 text-primary"></i> Thêm giỏ hàng</a>
+                                            <input type="text" name="quantity"
+                                                class="form-control form-control-sm text-center border-0 cart-qty-input"
+                                                value="1">
+
+                                            <!-- Cộng 1 sản phẩm -->
+                                            <div class="input-group-btn">
+                                                <button type="button"
+                                                    class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- nút thêm vào giỏ hàng -->
+                                        <button type="submit"
+                                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                            <i class="fa fa-shopping-bag me-2 text-primary"></i> Thêm giỏ hàng
+                                        </button>
+                                    </form>
                                 </div>
 
                                 <!-- phần mô tả chi tiết -->

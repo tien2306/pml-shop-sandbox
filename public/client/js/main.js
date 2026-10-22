@@ -134,7 +134,7 @@
     // Product Quantity (Tăng / Giảm số lượng)
     $('.quantity button').on('click', function () {
         var button = $(this);
-        var input = button.closest('.quantity').find('input');
+        var input = button.closest('.quantity').find('input:not([type="hidden"])');
         var oldValue = parseFloat(input.val()) || 1;
         var newVal = 1;
 
@@ -153,7 +153,7 @@
     });
 
     // Lắng nghe sự kiện khi số lượng thay đổi (bấm nút hoặc tự nhập tay)
-    $('.quantity input').on('change', function () {
+    $('.quantity input:not([type="hidden"])').on('change', function () {
         var input = $(this);
         var val = parseFloat(input.val());
 

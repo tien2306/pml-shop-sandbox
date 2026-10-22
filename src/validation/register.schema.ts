@@ -26,6 +26,7 @@ export const RegisterSchema = z
     password: passwordSchema,
     confirmPassword: z.string().min(1, "Vui lòng xác nhận lại mật khẩu"),
   })
+  // refine kt dử liệu trả về true/ false
   .refine(
     async (data) => {
       const existingUser: boolean = await isEmailExist(data.email);
