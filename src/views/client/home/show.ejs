@@ -183,9 +183,9 @@
                                 <div class="col-lg-8 text-end">
                                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                         <li class="nav-item">
-                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active"
-                                                data-bs-toggle="pill" href="#tab-1">
-                                                <span class="text-dark" style="width: 130px;">Tất cả sản phẩm</span>
+                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active" href="/products">
+                                                <span class="text-dark" style="width: 130px;">Tất cả sản
+                                                    phẩm</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -244,6 +244,30 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="pagination d-flex justify-content-center mt-5">
+                                        <li class="<%= currentPage === 1 ? 'disabled page-item' : 'page-item' %> ">
+                                            <a class="page-link" href="/?page=<%= currentPage - 1  %>"
+                                                aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <% for(var i=1; i <=totalPages; i++) {%>
+                                            <li class="page-item">
+                                                <a class="<%= currentPage === i ? 'active page-link' : 'page-link' %>"
+                                                    href="/?page=<%= i  %>">
+                                                    <%= i %>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                                                <li
+                                                    class="<%= currentPage === totalPages ? 'disabled page-item' : 'page-item' %> ">
+                                                    <a class="page-link" href="/?page=<%= currentPage + 1  %>"
+                                                        aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

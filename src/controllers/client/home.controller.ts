@@ -1,13 +1,26 @@
 import { Request, Response } from "express";
-import { getProducts } from "../../services/client/product.service";
+import {
+  countTotalProductPagesHome,
+  getProducts,
+} from "../../services/client/product.service";
 import { formatPrice } from "../../helper/format";
 
 const getHomePage = async (req: Request, res: Response) => {
   //get data
-  const products = await getProducts();
-  const user = req.user;
+  const { page } = req.query;
 
-  return res.render("client/home/show.ejs", { products, formatPrice });
+  let currentPage = page ? +page : 1;
+  if (currentPage <= 0) currentPage = 1;
+
+  const totalPages: number = await countTotalProductPagesHome();
+  const products = await getProducts(currentPage);
+
+  return res.render("client/home/show.ejs", {
+    products,
+    formatPrice,
+    currentPage,
+    totalPages,
+  });
 };
 
 export { getHomePage };

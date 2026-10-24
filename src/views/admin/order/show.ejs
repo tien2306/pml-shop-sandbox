@@ -46,33 +46,69 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <%= orders.id %>
-                                        </td>
-                                        <td>
-                                            <%= user.fullName %>
-                                        </td>
-                                        <td>
-                                            <%= orders.totalPricee %>
-                                        </td>
-                                        <td>
-                                            <%= orders.status %>
-                                        </td>
-                                        <td>
-                                            <%= orders.paymentMethod %>
-                                        </td>
-                                        <td>
-                                            <%= orders.paymentStatus %>
-                                        </td>
-                                        <td style="display: flex; gap: 5px;">
-                                            <a href="/admin/view-order/<%= orders.id %>" class="btn btn-primary">
-                                                View Detail Product
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    <% if (orders && orders.length> 0) { %>
+                                        <% orders.forEach(function(order) { %>
+                                            <tr>
+                                                <td>
+                                                    <%= order.id %>
+                                                </td>
+                                                <td>
+                                                    <%= user.fullName ?user.fullName : "" %>
+                                                </td>
+                                                <td>
+                                                    <%= order.totalPricee %>
+                                                </td>
+                                                <td>
+                                                    <%= order.status %>
+                                                </td>
+                                                <td>
+                                                    <%= order.paymentMethod %>
+                                                </td>
+                                                <td>
+                                                    <%= order.paymentStatus %>
+                                                </td>
+                                                <td style="display: flex; gap: 5px;">
+                                                    <a href="/admin/view-order/<%= order.id %>" class="btn btn-primary">
+                                                        View Detail Product
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <% }); %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td colspan="7" class="text-center">No orders found</td>
+                                                    </tr>
+                                                    <% } %>
                                 </tbody>
                             </table>
+
+                            <!-- Pagination -->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="<%= currentPage==1 ? 'disabled page-link' : 'page-link' %>"
+                                            href="/admin/order?page=<%= currentPage - 1 %>" aria-label=" Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <% for(var i=0; i<totalPages; i++) {%>
+                                        <li class="page-item"><a
+                                                class="<%= currentPage==i+1 ? 'active page-link' : 'page-link' %>"
+                                                href="/admin/order?page=<%= i+1 %>">
+                                                <%= i+1 %>
+                                            </a>
+                                        </li>
+                                        <% } %>
+
+                                            <li class="page-item">
+                                                <a class="<%= currentPage==totalPages ? 'disabled page-link' : 'page-link' %>"
+                                                    href="/admin/order?page=<%= currentPage + 1 %>" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                </ul>
+                            </nav>
+
                         </div>
                     </main>
 

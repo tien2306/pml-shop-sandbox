@@ -2,7 +2,10 @@
 const router = express.Router();
 import fileUploadMiddleware from "../middleware/multer";
 import { getHomePage } from "../controllers/client/home.controller";
-import { getProductPageById } from "../controllers/client/product.controller";
+import {
+  getProductFilterPage,
+  getProductPageById,
+} from "../controllers/client/product.controller";
 import {
   getCartPage,
   postAddProductToCart,
@@ -50,6 +53,7 @@ const webRoutes = (app: Express) => {
   //client routes
   router.get("/", getHomePage);
   // Product
+  router.get("/products", getProductFilterPage);
   router.get("/product/:id", getProductPageById);
   // Auth
   router.get("/success-redirect", getSuccessRegirectPage);
